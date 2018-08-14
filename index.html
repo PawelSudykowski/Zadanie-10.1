@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Zadanie 10.1</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+</head>
+<body>
+    <div id="map"></div>
+	
+    <div class="kar">
+        <div id="i0" data_lat="40.4318605" data_lng="116.5685754" class="item">Mur Chiński</div>
+        <div id="i1" data_lat="36.1252569" data_lng="-114.0652265" class="item">Wielki Kanion</div>
+        <div id="i2" data_lat="29.9772962" data_lng="31.1324955" class="item">Piramidy Egipskie</div>
+        <div id="i3" data_lat="43.0828162" data_lng="-79.0741629" class="item">Wodospad Niagara</div>
+        <div id="i4" data_lat="63.6467387" data_lng="-19.1390395" class="item">Wulkan Katla</div>
+        <div id="i5" data_lat="31.5374596" data_lng="35.2100887" class="item">Morze Martwe</div>
+        <div id="i6" data_lat="54.0286986" data_lng="19.0084414" class="item">Malbork</div>
+        <div id="i7" data_lat="43.7229559" data_lng="10.3944083" class="item">Krzywa Wieża</div>
+    </div>
+	<script src="script.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+    <script type="text/javascript">
+
+        var map;
+        function initMap() {
+            var pos = { lat: 40.4318605, lng: 116.5685754 };
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 8
+            });
+
+            var marker = new google.maps.Marker({ position: pos, map: map });
+        }
+
+        $('.kar').flickity({
+            // options
+            //cellAlign: 'left',
+            wrapAround: true,
+            contain: true
+        });
+
+        $(".kar").on("select.flickity", function (e, i) {
+            var item = $("#i" + i);
+            var lat = parseFloat(item.attr("data_lat"));
+            var lng = parseFloat(item.attr("data_lng"));
+            var pos = { lat: lat, lng: lng };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 8
+            });
+
+            var marker = new google.maps.Marker({ position: pos, map: map });
+        });
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVMhYA1gzGr1cW6D5cz8oBmSJVYN_PqZ0&callback=initMap"
+            async defer></script>
+</body>
+</html>
